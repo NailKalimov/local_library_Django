@@ -30,8 +30,8 @@ class Book(models.Model):
     def display_list_of_genree(self):
         return ', '.join([i.name for i in self.genre.all()[:3]])
     
-    # def get_absolute_url(self):
-    #     return reverse('')
+    def get_absolute_url(self):
+        return reverse('book_detail', args=[str(self.id)])
 
 class BookInstance(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, 
