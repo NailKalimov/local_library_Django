@@ -9,6 +9,8 @@ admin.site.register(Genre)
 
 class BookInLine(admin.TabularInline):
     model = Book
+
+
 """по умолчанию модели в админке отображаются через ф-ю __str__,
 но это можно кастомизировать с помощью класса %modelname%Admin(admin.ModelAdmin)"""
 class AuthorAdmin(admin.ModelAdmin):
@@ -27,7 +29,7 @@ class BooksInstanceInline(admin.TabularInline):
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
-    list_display = ('title', 'author', 'display_list_of_genree')
+    list_display = ('title', 'author', 'display_list_of_genres')
     list_filter = ('author', 'title',)
     inlines = [BooksInstanceInline]
 

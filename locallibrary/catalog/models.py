@@ -27,7 +27,7 @@ class Book(models.Model):
     def __str__(self):
         return self.title
     
-    def display_list_of_genree(self):
+    def display_list_of_genres(self):
         return ', '.join([i.name for i in self.genre.all()[:3]])
     
     def get_absolute_url(self):
@@ -61,8 +61,8 @@ class Author(models.Model):
     date_of_birth = models.DateField(null=True, blank=True)
     date_of_death = models.DateField(null=True, blank=True)
 
-    def get_absolute_url():
-        pass
+    def get_absolute_url(self):
+        return reverse('author_detail', args=[str(self.id)])
 
     def __str__(self):
         return '{} {}'.format(self.first_name, self.second_name)
