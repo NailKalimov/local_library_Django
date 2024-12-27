@@ -3,4 +3,14 @@
     padding: 0;
     list-style: none;
   }
-  
+.link-button {
+  background: none;
+  border: none;
+  color: blue;
+  cursor: pointer;
+  display: inline;
+  font: inherit;
+  margin: 0;
+  padding: 0;
+  text-decoration: underline;
+}
