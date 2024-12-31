@@ -8,4 +8,5 @@ urlpatterns = [
     path('authors/', view=views.AuthorsListView.as_view(), name='authors'),
     path(r'^author/(?P<pk>\d+)$', view=views.AuthorDetailView.as_view(), name='author_detail'),
     path(r'^mybooks/$', views.LoanedBooksByUserListView.as_view(), name='my-borrowed'),
+    path('librarer/', views.AllLoanedBooksForStaff.as_view(), name='librarer-page'),
 ]

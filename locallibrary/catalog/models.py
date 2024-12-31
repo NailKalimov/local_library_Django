@@ -1,5 +1,4 @@
 from datetime import date
-
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -56,6 +55,7 @@ class BookInstance(models.Model):
 
     class Meta:
         ordering = ['due_back']
+        permissions = (('can_view_all_book_instance_on_loan', 'view'),)
 
     def __str__(self):
         return '{} {}'.format(self.id, self.book.title)
@@ -75,3 +75,5 @@ class Author(models.Model):
 
     def __str__(self):
         return '{} {}'.format(self.first_name, self.second_name)
+
+
