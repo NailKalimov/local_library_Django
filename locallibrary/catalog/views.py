@@ -82,8 +82,8 @@ def renew_book_librarian(request, pk):
             book_inst.due_back = form.cleaned_data['renewal_date']
             book_inst.save()
             return HttpResponseRedirect(reverse('librarer-page'))
-
-        return render(request, 'catalog/book_renew_librarian.html',
+        else:
+            return render(request, 'catalog/book_renew_librarian.html',
                       {'form': form, 'book_inst': book_inst})
     else:
         default_renewal_date = datetime.date.today() + datetime.timedelta(weeks=3)
@@ -92,6 +92,7 @@ def renew_book_librarian(request, pk):
                       {'form': form, 'bookinst': book_inst})
 
 
+# Создание вьюх создания, редактирования, удаления
 class AuthorCreate(CreateView):
     model = Author
     fields = '__all__'
@@ -106,3 +107,7 @@ class AuthorUpdate(UpdateView):
 class AuthorDelete(DeleteView):
     model = Author
     success_url = reverse_lazy('authors')
+
+class BookCreate(CreateView):
+    model = Book
+    fields = '__all__'
