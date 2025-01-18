@@ -48,7 +48,7 @@ class BookDetailView(generic.DetailView):
 
 class AuthorsListView(generic.ListView):
     model = Author
-    paginate_by = 2
+    paginate_by = 10
     context_object_name = 'author_list'
     template_name = 'catalog/templates/author_list.html'
 
@@ -81,7 +81,7 @@ def renew_book_librarian(request, pk):
         if form.is_valid():
             book_inst.due_back = form.cleaned_data['renewal_date']
             book_inst.save()
-            return HttpResponseRedirect(reverse('librarer-page'))
+            return HttpResponseRedirect(reverse('librarian-page'))
         else:
             return render(request, 'catalog/book_renew_librarian.html',
                       {'form': form, 'book_inst': book_inst})
