@@ -45,7 +45,7 @@ class BookInstance(models.Model):
     due_back = models.DateField(null=True, blank=True)
     borrower = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     LOAN_STATUS = (
-        ('m', 'Maintance'),
+        ('m', 'Maintenance'),
         ('o', 'On loan'),
         ('a', 'Available'),
         ('r', 'Reserved'),
