@@ -55,7 +55,7 @@ class BookInstance(models.Model):
 
     class Meta:
         ordering = ['due_back']
-        permissions = (('can_view_all_book_instance_on_loan', 'view'),)
+        permissions = (('can_view_all_book_instance_on_loan', 'view_all_borrowed_books'),)
 
     def __str__(self):
         return '{} {}'.format(self.id, self.book.title)

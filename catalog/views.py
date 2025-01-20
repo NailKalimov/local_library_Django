@@ -92,22 +92,45 @@ def renew_book_librarian(request, pk):
                       {'form': form, 'bookinst': book_inst})
 
 
-# Создание вьюх создания, редактирования, удаления
-class AuthorCreate(CreateView):
+# Вьюхи создания, редактирования, удаления
+class AuthorCreate(PermissionRequiredMixin, CreateView):
     model = Author
     fields = '__all__'
     initial = {'date_of_death': '12/10/2016', }
+    permission_required = 'catalog.add_author' # Стандартные разрешения Django для пользовательских моделей
 
 
-class AuthorUpdate(UpdateView):
+class AuthorUpdate(PermissionRequiredMixin, UpdateView):
     model = Author
     fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
+    permission_required = 'catalog.change_author'
 
 
-class AuthorDelete(DeleteView):
+class AuthorDelete(PermissionRequiredMixin, DeleteView):
     model = Author
     success_url = reverse_lazy('authors')
+    permission_required = 'catalog.delete_author'
 
-class BookCreate(CreateView):
+    def form_valid(self, form):
+        try:
+            self.object.delete()
+            return HttpResponseRedirect(self.success_url)
+        except Exception as e:
+            return HttpResponseRedirect(
+                reverse("author-delete", kwargs={"pk": self.object.pk})
+            )
+
+class BookCreate(PermissionRequiredMixin, CreateView):
     model = Book
     fields = '__all__'
+    permission_required = 'catalog.add_book'
+
+class BookUpdate(PermissionRequiredMixin, UpdateView):
+    model = Book
+    fields = '__all__'
+    permission_required = 'catalog.change_book'
+
+class BookDelete(PermissionRequiredMixin, DeleteView):
+    model = Book
+    success_url = reverse_lazy('books')
+    permission_required = 'catalog.delete_book'
