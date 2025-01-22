@@ -1,6 +1,7 @@
 import datetime
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.core.exceptions import ValidationError
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
@@ -50,7 +51,7 @@ class AuthorsListView(generic.ListView):
     model = Author
     paginate_by = 10
     context_object_name = 'author_list'
-    template_name = 'catalog/templates/author_list.html'
+    template_name = 'catalog/author_list.html'
 
 
 class AuthorDetailView(generic.DetailView):
@@ -96,13 +97,20 @@ def renew_book_librarian(request, pk):
 class AuthorCreate(PermissionRequiredMixin, CreateView):
     model = Author
     fields = '__all__'
-    initial = {'date_of_death': '12/10/2016', }
+    initial = {'date_of_death': '11/11/2023', }
     permission_required = 'catalog.add_author' # Стандартные разрешения Django для пользовательских моделей
-
+    success_url = reverse_lazy('authors')
+    #Проверить данные формы на валидность
+    # def form_valid(self, form):
+    #     if form.instance.date_of_death > datetime.date.today():
+    #         form.instance.date_of_death = None
+    #     if form.instance.date_of_birth > datetime.date.today():
+    #         form.instance.date_of_birth = None
+    #     return super().form_valid(form)
 
 class AuthorUpdate(PermissionRequiredMixin, UpdateView):
     model = Author
-    fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
+    fields = ['first_name', 'second_name', 'date_of_birth', 'date_of_death']
     permission_required = 'catalog.change_author'
 
 

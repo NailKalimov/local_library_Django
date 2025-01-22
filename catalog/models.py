@@ -70,10 +70,11 @@ class Author(models.Model):
     date_of_birth = models.DateField(null=True, blank=True)
     date_of_death = models.DateField('died', null=True, blank=True)
 
+    class Meta:
+        ordering = ['second_name', 'first_name']
+
     def get_absolute_url(self):
         return reverse('author_detail', args=[str(self.id)])
 
     def __str__(self):
         return '{} {}'.format(self.first_name, self.second_name)
-
-
